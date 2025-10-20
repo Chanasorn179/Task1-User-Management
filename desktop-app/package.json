@@ -1,0 +1,15 @@
+{
+  "name": "desktop-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"cd ../admin-panel && npm run build\" \"electron .\"",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^26.6.10",
+    "electron-builder": "^26.0.12"
+  }
+}

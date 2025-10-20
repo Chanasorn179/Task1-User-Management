@@ -98,6 +98,49 @@ app.get("/health", (_req, res) => {
   });
 });
 
+// ---------- Supervisor Metrics (for dashboard) ----------
+app.get("/api/supervisor/metrics", async (_req, res) => {
+  try {
+    const db = global.sqliteDb;
+
+    // 🕒 เวลาย้อนหลัง 10 จุด (ทุก 1 นาที)
+    const now = new Date();
+    const labels = Array.from({ length: 10 }, (_, i) => {
+      const t = new Date(now.getTime() - (9 - i) * 60000);
+      return t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    });
+
+    // 📊 ดึงข้อมูลปัจจุบันจาก SQLite
+    const result = await db.all(`
+      SELECT status, COUNT(*) as total
+      FROM agents
+      GROUP BY status
+    `);
+
+    // 🧮 สร้าง mapping ค่า status
+    const activeCount = result.find(r => r.status === 'Active')?.total || 0;
+    const breakCount = result.find(r => r.status === 'Break')?.total || 0;
+    const awayCount = result.find(r => r.status === 'Away')?.total || 0;
+
+    // 📈 จำลองข้อมูลย้อนหลัง (ใช้ค่าปัจจุบันไล่ 10 จุด)
+    const active = Array.from({ length: 10 }, () =>
+      Math.max(0, activeCount + Math.floor(Math.random() * 3 - 1))
+    );
+    const breakUsers = Array.from({ length: 10 }, () =>
+      Math.max(0, breakCount + Math.floor(Math.random() * 3 - 1))
+    );
+    const away = Array.from({ length: 10 }, () =>
+      Math.max(0, awayCount + Math.floor(Math.random() * 3 - 1))
+    );
+
+    res.json({ labels, active, breakUsers, away });
+  } catch (err) {
+    console.error("❌ Failed to load supervisor metrics:", err);
+    res.status(500).json({ error: "Failed to load metrics" });
+  }
+});
+
+
 // ---------- 404 & error handler ----------
 app.use((_req, res) => {
   res.status(404).json({ success: false, error: "Route not found" });
