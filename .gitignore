@@ -1,0 +1,24 @@
+﻿# dependencies
+node_modules/
+backend-server/node_modules/
+admin-panel/node_modules/
+
+# environment & local
+.env
+*.env
+backend-server/.env
+admin-panel/.env
+
+# sqlite db files
+database/sqlite/*.db
+database/sqlite/*.sqlite
+database/sqlite/*.sqlite3
+
+# builds & logs
+dist/
+build/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.DS_Store

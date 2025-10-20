@@ -1,0 +1,153 @@
+{
+  "info": {
+    "name": "Task1: User Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login Without Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"AD001\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/users/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\":\"AG099\",\n  \"fullName\":\"Test Agent\",\n  \"role\":\"Agent\",\n  \"teamId\":1,\n  \"status\":\"Active\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update User",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"Updated Name\",\n  \"status\": \"Inactive\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/users/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/users/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    }
+  ]
+}
