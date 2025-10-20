@@ -1,8 +1,15 @@
--- 01-create-users-table.sql
+-- ========================================
+-- Task#1: User Management - users Table
+-- Version: 1.2 (Updated with FK pragma)
+-- ========================================
+
+-- 🆕 IMPORTANT: เปิดใช้งาน Foreign Key constraints
 PRAGMA foreign_keys = ON;
 
+-- ลบตารางเดิมถ้ามี (สำหรับ development)
 DROP TABLE IF EXISTS users;
 
+-- สร้างตาราง users
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
@@ -17,13 +24,15 @@ CREATE TABLE users (
     FOREIGN KEY (teamId) REFERENCES teams(team_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
-CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
-CREATE INDEX IF NOT EXISTS idx_users_status ON users(status);
-CREATE INDEX IF NOT EXISTS idx_users_teamId ON users(teamId);
-CREATE INDEX IF NOT EXISTS idx_users_deletedAt ON users(deletedAt);
+-- สร้าง indexes เพื่อ performance
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_status ON users(status);
+CREATE INDEX idx_users_teamId ON users(teamId);
+CREATE INDEX idx_users_deletedAt ON users(deletedAt);
 
-CREATE TRIGGER IF NOT EXISTS update_users_timestamp 
+-- สร้าง trigger สำหรับ updatedAt
+CREATE TRIGGER update_users_timestamp 
 AFTER UPDATE ON users
 FOR EACH ROW
 BEGIN
