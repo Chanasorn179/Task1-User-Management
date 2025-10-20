@@ -1,4 +1,4 @@
-# Task1 - User Management (Full Zip)
+# Task1 - User Management
 
 ## How to run
 
